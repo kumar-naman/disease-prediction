@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 Created on Sun May 22 11:53:51 2022
-
-@author: Naman Kumar
 """
+@author: Naman Kumar
+
 # login page
 import pickle
 from PIL import Image
