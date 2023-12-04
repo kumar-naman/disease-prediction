@@ -46,7 +46,7 @@ if authenticate_user():
 
     diabetes_model = pickle.load(open('saved models/diabetes_model.sav', 'rb'))
 
-    heart_model = pickle.load(open('saved models/heart_disease_model.sav','rb'))
+    heart_model = pickle.load(open('saved models/nb_model.pkl','rb'))
 
     kidney_model = pickle.load(open('saved models/kd_model.pkl', 'rb'))
     
