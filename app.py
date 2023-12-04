@@ -46,7 +46,7 @@ if authenticate_user():
 
     diabetes_model = pickle.load(open('saved models/diabetes_model.sav', 'rb'))
 
-    heart_model = pickle.load(open('saved models/nb_model.pkl','rb'))
+    heart_model = pickle.load(open('saved models/heart_model.pkl','rb'))
 
     kidney_model = pickle.load(open('saved models/kd_model.pkl', 'rb'))
     
@@ -79,48 +79,70 @@ if authenticate_user():
         st.info('The main feature will be the machine learning, in which we will be using algorithms such as Naïve Bayes Algorithm, KNearest Algorithm, Decision Tree Algorithm, Random Forest Algorithm and Support Vector Machine, which will predict accurate disease and also, will find which algorithm gives a faster and efficient result by comparatively comparing. The importance of this system analysis is that while analyzing the diseases all the parameters which cause the disease are included so it is possible to detect the disease efficiently and more accurately. The final model behavior will be saved as a python pickle file.')
                
 
-    if selected == 'Heart Disease Prediction':
+    if (selected == 'Heart Disease Prediction'):
+    
+    # page title
+    st.title('Heart Disease Prediction using ML')
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        age = st.text_input('Age')
+        
+    with col2:
+        sex = st.text_input('Sex')
+        
+    with col3:
+        cp = st.text_input('Chest Pain types')
+        
+    with col1:
+        trestbps = st.text_input('Resting Blood Pressure')
+        
+    with col2:
+        chol = st.text_input('Serum Cholestoral in mg/dl')
+        
+    with col3:
+        fbs = st.text_input('Fasting Blood Sugar > 120 mg/dl')
+        
+    with col1:
+        restecg = st.text_input('Resting Electrocardiographic results')
+        
+    with col2:
+        thalach = st.text_input('Maximum Heart Rate achieved')
+        
+    with col3:
+        exang = st.text_input('Exercise Induced Angina')
+        
+    with col1:
+        oldpeak = st.text_input('ST depression induced by exercise')
+        
+    with col2:
+        slope = st.text_input('Slope of the peak exercise ST segment')
+        
+    with col3:
+        ca = st.text_input('Major vessels colored by flourosopy')
+        
+    with col1:
+        thal = st.text_input('thal: 0 = normal; 1 = fixed defect; 2 = reversable defect')
+        
+            
+         # code for Prediction
+    heart_diagnosis = ''
+    
+    # creating a button for Prediction
+    
+    if st.button('Heart Disease Test Result'):
+        heart_prediction = heart_disease_model.predict([[age, sex, cp, trestbps, chol, fbs, restecg,thalach,exang,oldpeak,slope,ca,thal]])                          
+        
+        if (heart_prediction[0] == 1):
+          heart_diagnosis = 'The person is having heart disease'
+        else:
+          heart_diagnosis = 'The person does not have any heart disease'
+        
+    st.success(heart_diagnosis)
 
-        st.title("Heart Disease Prediction")
-        age = st.number_input("Age")
-        gender = st.selectbox("Gender (0-Male, 1-Female)", ["0", "1"])
-        cp = st.number_input("Chest Pain Type")
-        trestbps = st.number_input("Resting Blood Pressure")
-        chol = st.number_input("Cholesterol")
-        fbs = st.number_input("Fasting Blood Sugar")
-        restecg = st.number_input("Resting ECG")
-        thalach = st.number_input("Maximum Heart Rate Achieved")
-        exang = st.number_input("Exercise-Induced Angina")
-        oldpeak = st.number_input("ST Depression Induced by Exercise")
-        slope = st.number_input("Slope of the Peak Exercise ST Segment")
-        ca = st.number_input("Number of Major Vessels Colored by Fluoroscopy")
-        thal = st.number_input("Thalassemia")
 
-        if st.button("Predict Heart Disease"):
-            user_data = {
-                "age": int(age),
-                "gender": int(gender),
-                "cp": float(cp),
-                "trestbps": float(trestbps),
-                "chol": float(chol),
-                "fbs": float(fbs),
-                "restecg": float(restecg),
-                "thalach": float(thalach),
-                "exang": float(exang),
-                "oldpeak": float(oldpeak),
-                "slope": float(slope),
-                "ca": float(ca),
-                "thal": float(thal)
-            }
-
-            input_data = pd.DataFrame([user_data])
-            heart_prediction = heart_model.predict(input_data)
-
-            if heart_prediction[0] == 1:
-                st.write("Yes, you are at risk of Heart Disease.")
-            else:
-                st.write("No, you are not at risk of Heart Disease.")
-
+    
     if selected == 'Kidney Disease Prediction':
 
         st.title("Kidney Disease Prediction")
